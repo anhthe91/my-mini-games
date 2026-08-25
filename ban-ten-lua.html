@@ -1,690 +1,725 @@
-!--================= 1. MỞ ĐẦU & MÔ TẢ GAME =================--
-div class=misl-seo-intro style=color #333333; font-family &quot;Segoe UI&quot;, Arial, sans-serif; line-height 1.6; margin-bottom 20px;
-  h1 style=color #0f3460; font-size 24px; font-weight bold; margin-bottom 10px;
-    🚀 Game Bắn Phá Tên Lửa - Tự Động Bắn Ngay Khi Nhập Số
-  h1
-  p
-    strongBắn Phá Tên Lửa (Auto-Fire Edition)strong giúp tối ưu hóa tốc độ gõ phím. Bạn chỉ cần gõ đúng dãy số hiển thị trên tên lửa, pháo Laser sẽ tự động bắn ngay lập tức mà không cần tốn thêm thao tác nhấn phím Enter hay bấm nút!
-  p
-div
-
-!--================= 2. MÃ NGUỒN GAME BẮN TÊN LỬA V2.2 (AUTO-FIRE) =================--
-div id=game-missile-defense-wrapper
-    style
-        #game-missile-defense-wrapper {
-            all initial;
-            font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display block;
-            width 100%;
-            max-width 720px;
-            margin 20px auto;
-            box-sizing border-box;
-        }
-
-        #game-missile-defense-wrapper , 
-        #game-missile-defense-wrapper before, 
-        #game-missile-defense-wrapper after {
-            box-sizing border-box;
-            font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        #game-missile-defense-wrapper .misl-container {
-            background #0b0c10;
-            padding 20px;
-            border-radius 20px;
-            box-shadow 0 15px 35px rgba(0, 0, 0, 0.6);
-            text-align center;
-            color #ffffff;
-            width 100%;
-            position relative;
-            overflow hidden;
-            border 2px solid #1f2833;
-        }
-
-        #game-missile-defense-wrapper .misl-header {
-            display flex;
-            justify-content space-between;
-            align-items center;
-            background #1f2833;
-            padding 10px 20px;
-            border-radius 12px;
-            margin-bottom 15px;
-            font-size 1.1rem;
-            font-weight bold;
-        }
-
-        #game-missile-defense-wrapper .misl-score { color #66fcf1; }
-        #game-missile-defense-wrapper .misl-walls { color #ff007f; }
-        #game-missile-defense-wrapper .misl-level { color #f7fff7; }
-
-         Canvas Game Zone 
-        #game-missile-defense-wrapper .misl-canvas-container {
-            position relative;
-            width 100%;
-            height 420px;
-            background linear-gradient(to bottom, #05050e, #1a1a2e);
-            border-radius 12px;
-            border 2px solid #45a29e;
-            overflow hidden;
-        }
-
-        #game-missile-defense-wrapper canvas {
-            display block;
-            width 100%;
-            height 100%;
-        }
-
-         Khung điều khiển & Nhập liệu 
-        #game-missile-defense-wrapper .misl-control-panel {
-            margin-top 15px;
-            display flex;
-            flex-direction column;
-            gap 12px;
-        }
-
-        #game-missile-defense-wrapper .misl-input-group {
-            display flex;
-            gap 10px;
-            justify-content center;
-        }
-
-        #game-missile-defense-wrapper .misl-input-box {
-            padding 12px 18px;
-            font-size 1.4rem;
-            font-weight bold;
-            border-radius 8px;
-            border 2px solid #66fcf1;
-            background #1f2833;
-            color #ffdd59;
-            text-align center;
-            outline none;
-            letter-spacing 3px;
-            width 80%;
-        }
-
-        #game-missile-defense-wrapper .misl-btn {
-            padding 12px 24px;
-            font-size 1.1rem;
-            font-weight bold;
-            background #ff007f;
-            color #ffffff;
-            border none;
-            border-radius 8px;
-            cursor pointer;
-            transition all 0.2s;
-        }
-
-        #game-missile-defense-wrapper .misl-btnhover {
-            background #ff3399;
-            transform translateY(-2px);
-        }
-
-        #game-missile-defense-wrapper .misl-select {
-            padding 10px 15px;
-            font-size 1rem;
-            font-weight bold;
-            background #1f2833;
-            color #66fcf1;
-            border 2px solid #45a29e;
-            border-radius 8px;
-            outline none;
-            cursor pointer;
-            margin-bottom 15px;
-        }
-
-         Overlay Màn hình Start  Game Over 
-        #game-missile-defense-wrapper .misl-overlay {
-            position absolute;
-            top 0; left 0; width 100%; height 100%;
-            background rgba(11, 12, 16, 0.92);
-            display flex;
-            flex-direction column;
-            justify-content center;
-            align-items center;
-            z-index 10;
-        }
-
-        #game-missile-defense-wrapper .misl-overlay-title {
-            font-size 2.2rem;
-            color #66fcf1;
-            font-weight bold;
-            margin-bottom 10px;
-            text-transform uppercase;
-        }
-
-        #game-missile-defense-wrapper .misl-overlay-desc {
-            font-size 1rem;
-            color #c5c6c7;
-            margin-bottom 15px;
-            max-width 85%;
-            line-height 1.5;
-        }
-
-         Bàn phím ảo cho di động 
-        #game-missile-defense-wrapper .misl-keypad {
-            display grid;
-            grid-template-columns repeat(5, 1fr);
-            gap 8px;
-            margin-top 10px;
-        }
-
-        #game-missile-defense-wrapper .misl-key {
-            padding 12px 0;
-            background #1f2833;
-            color #66fcf1;
-            border 1px solid #45a29e;
-            border-radius 6px;
-            font-size 1.3rem;
-            font-weight bold;
-            cursor pointer;
-            user-select none;
-        }
-
-        #game-missile-defense-wrapper .misl-keyactive {
-            background #45a29e;
-            color #0b0c10;
-        }
-    style
-
-    div class=misl-container
-        !--Thanh trạng thái--
-        div class=misl-header
-            div class=misl-scoreĐiểm span id=misl-scoreVal0spandiv
-            div class=misl-levelCấp span id=misl-levelVal1spandiv
-            div class=misl-wallsTường Thành span id=misl-wallsVal🧱🧱🧱spandiv
-        div
-
-        !--Màn hình Game--
-        div class=misl-canvas-container
-            canvas id=misl-canvascanvas
-            
-            div class=misl-overlay id=misl-overlay
-                div class=misl-overlay-title id=misl-overlayTitleBẮN PHÁ TÊN LỬAdiv
-                div class=misl-overlay-desc id=misl-overlayDesc
-                    ⚡ strongChế độ Bắn Tự Độngstrong Chỉ cần gõ đúng số, Laser sẽ tự kích hoạt!br 
-                    Chọn tốc độ phù hợp trước khi bắt đầu.
-                div
-                
-                div style=margin-bottom 10px;
-                    label style=color #ffdd59; font-size 1.05rem; font-weight bold; margin-right 8px;🚀 Tốc độ ban đầulabel
-                    select class=misl-select id=misl-speedSelect
-                        option selected= value=veryslow🐌 Rất chậm (Tập luyện thư thả)option
-                        option value=slow🐢 Chậm (Làm quen Numpad)option
-                        option value=medium🏃 Trung bình (Tiêu chuẩn)option
-                        option value=fast⚡ Nhanh (Thách thức cao thủ)option
-                    select
-                div
-
-                button class=misl-btn id=misl-startBtnBẮT ĐẦU CHƠI 🚀button
-            div
-        div
-
-        !--Khung Nhập Số Auto-Fire--
-        div class=misl-control-panel
-            div class=misl-input-group
-                input autocomplete=off class=misl-input-box disabled= id=misl-input placeholder=Gõ số là bắn tự động... type=text 
-            div
-
-            !--Bàn phím phụ ảo--
-            div class=misl-keypad
-                button class=misl-key data-val=11button
-                button class=misl-key data-val=22button
-                button class=misl-key data-val=33button
-                button class=misl-key data-val=44button
-                button class=misl-key data-val=55button
-                button class=misl-key data-val=66button
-                button class=misl-key data-val=77button
-                button class=misl-key data-val=88button
-                button class=misl-key data-val=99button
-                button class=misl-key data-val=00button
-            div
-        div
-    div
-
-    script
-    (function() {
-        const canvas = document.getElementById('misl-canvas');
-        const ctx = canvas.getContext('2d');
-        const scoreEl = document.getElementById('misl-scoreVal');
-        const levelEl = document.getElementById('misl-levelVal');
-        const wallsEl = document.getElementById('misl-wallsVal');
-        const inputEl = document.getElementById('misl-input');
-        const startBtn = document.getElementById('misl-startBtn');
-        const speedSelect = document.getElementById('misl-speedSelect');
-        const overlay = document.getElementById('misl-overlay');
-        const overlayTitle = document.getElementById('misl-overlayTitle');
-        const overlayDesc = document.getElementById('misl-overlayDesc');
-
-        let score = 0;
-        let level = 1;
-        let isPlaying = false;
-
-        let missiles = [];
-        let lasers = [];
-        let particles = [];
-        let walls = [];
-        let spawnTimer = 0;
-        let spawnInterval = 200;
-        let animationFrameId = null;
-
-        let baseSpeedMultiplier = 0.25;
-
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext  window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
-
-        function playLaserSound() {
-            if (!audioCtx) return;
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
-        }
-
-        function playExplosionSound() {
-            if (!audioCtx) return;
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'square';
-            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.25);
-            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.25);
-        }
-
-        function playWallBreakSound() {
-            if (!audioCtx) return;
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(20, audioCtx.currentTime + 0.5);
-            gain.gain.setValueAtTime(0.6, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.5);
-        }
-
-        function playLevelUpSound() {
-            if (!audioCtx) return;
-            let now = audioCtx.currentTime;
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(400, now);
-            osc.frequency.setValueAtTime(600, now + 0.1);
-            osc.frequency.setValueAtTime(800, now + 0.2);
-            gain.gain.setValueAtTime(0.3, now);
-            gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(now + 0.35);
-        }
-
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        function initWalls() {
-            walls = [];
-            const wallWidth = 110;
-            const wallHeight = 35;
-            const y = canvas.height - 50;
-            const gap = (canvas.width - (wallWidth  3))  4;
-
-            for (let i = 0; i  3; i++) {
-                walls.push({
-                    x gap + i  (wallWidth + gap),
-                    y y,
-                    width wallWidth,
-                    height wallHeight,
-                    alive true
-                });
-            }
-        }
-
-        class Missile {
-            constructor() {
-                this.x = Math.random()  (canvas.width - 100) + 50;
-                this.y = -40;
-                
-                const rawSpeed = (0.3 + (level  0.05) + Math.random()  0.1)  baseSpeedMultiplier;
-                this.speed = Math.min(rawSpeed, 4.5);
-                
-                let numDigits = 2 + Math.floor((level - 1)  2);
-                if (numDigits  6) numDigits = 6;
-                
-                this.code = '';
-                for (let i = 0; i  numDigits; i++) {
-                    this.code += Math.floor(Math.random()  10).toString();
-                }
-
-                this.width = 30;
-                this.height = 45;
-            }
-
-            update() {
-                this.y += this.speed;
-            }
-
-            draw() {
-                ctx.fillStyle = '#ff007f';
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - 12, this.y + 35);
-                ctx.lineTo(this.x + 12, this.y + 35);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.fillStyle = '#ffdd59';
-                ctx.beginPath();
-                ctx.moveTo(this.x - 6, this.y + 35);
-                ctx.lineTo(this.x, this.y + 35 + Math.random()  14);
-                ctx.lineTo(this.x + 6, this.y + 35);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.fillStyle = '#0b0c10';
-                ctx.fillRect(this.x - 32, this.y - 25, 64, 22);
-                ctx.strokeStyle = '#66fcf1';
-                ctx.lineWidth = 1.5;
-                ctx.strokeRect(this.x - 32, this.y - 25, 64, 22);
-
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 15px monospace';
-                ctx.textAlign = 'center';
-                ctx.fillText(this.code, this.x, this.y - 9);
-            }
-        }
-
-        class Laser {
-            constructor(targetX, targetY) {
-                this.startX = canvas.width  2;
-                this.startY = canvas.height - 10;
-                this.targetX = targetX;
-                this.targetY = targetY;
-                this.progress = 0;
-            }
-
-            update() {
-                this.progress += 0.25;
-            }
-
-            draw() {
-                ctx.strokeStyle = '#66fcf1';
-                ctx.lineWidth = 5;
-                ctx.beginPath();
-                ctx.moveTo(this.startX, this.startY);
-                let curX = this.startX + (this.targetX - this.startX)  this.progress;
-                let curY = this.startY + (this.targetY - this.startY)  this.progress;
-                ctx.lineTo(curX, curY);
-                ctx.stroke();
-            }
-        }
-
-        class Particle {
-            constructor(x, y, isBig = false) {
-                this.x = x;
-                this.y = y;
-                let speedScale = isBig  14  7;
-                this.vx = (Math.random() - 0.5)  speedScale;
-                this.vy = (Math.random() - 0.5)  speedScale;
-                this.alpha = 1;
-                this.radius = isBig  (Math.random()  6 + 4)  3;
-                this.color = ['#ff007f', '#66fcf1', '#ffdd59', '#ff3300', '#ffffff'][Math.floor(Math.random()  5)];
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.alpha -= 0.03;
-            }
-
-            draw() {
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI  2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            }
-        }
-
-        function createExplosion(x, y, isBig = false) {
-            let count = isBig  50  22;
-            for (let i = 0; i  count; i++) {
-                particles.push(new Particle(x, y, isBig));
-            }
-        }
-
-        function updateWallsUI() {
-            let activeCount = walls.filter(w = w.alive).length;
-            let wallIcons = '';
-            for (let i = 0; i  activeCount; i++) wallIcons += '🧱';
-            wallsEl.textContent = wallIcons  '💥 HỎNG HẾT';
-        }
-
-        function drawWalls() {
-            walls.forEach(w = {
-                if (w.alive) {
-                    ctx.fillStyle = '#2c5364';
-                    ctx.fillRect(w.x, w.y, w.width, w.height);
-                    
-                    ctx.strokeStyle = '#66fcf1';
-                    ctx.lineWidth = 3;
-                    ctx.strokeRect(w.x, w.y, w.width, w.height);
-
-                    ctx.strokeStyle = '#0f2027';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.moveTo(w.x, w.y + w.height2);
-                    ctx.lineTo(w.x + w.width, w.y + w.height2);
-                    ctx.moveTo(w.x + w.width3, w.y);
-                    ctx.lineTo(w.x + w.width3, w.y + w.height2);
-                    ctx.moveTo(w.x + (w.width3)2, w.y + w.height2);
-                    ctx.lineTo(w.x + (w.width3)2, w.y + w.height);
-                    ctx.stroke();
-                }
-            });
-        }
-
-         TỰ ĐỘNG KIỂM TRA VÀ BẮN NGAY KHI GÕ SỐ
-        function checkAutoFire() {
-            if (!isPlaying) return;
-            initAudio();
-
-            const val = inputEl.value.trim();
-            if (!val) return;
-
-            let hitIndex = missiles.findIndex(m = m.code === val);
-
-            if (hitIndex !== -1) {
-                playLaserSound();
-                let target = missiles[hitIndex];
-                lasers.push(new Laser(target.x, target.y));
-                
-                 Xóa ô nhập ngay lập tức sau khi bắn trúng
-                inputEl.value = '';
-
-                setTimeout(() = {
-                    playExplosionSound();
-                    createExplosion(target.x, target.y, false);
-                    
-                     Kiểm tra lại index phòng trường hợp mảng bị thay đổi
-                    let curIdx = missiles.indexOf(target);
-                    if (curIdx !== -1) {
-                        missiles.splice(curIdx, 1);
-                    }
-                    
-                    score += 10;
-                    scoreEl.textContent = score;
-
-                    if (score = level  50) {
-                        level++;
-                        levelEl.textContent = level;
-                        spawnInterval = Math.max(60, Math.floor((220 - level  5)  baseSpeedMultiplier));
-                        playLevelUpSound();
-                    }
-                }, 70);
-            }
-        }
-
-        function gameLoop() {
-            if (!isPlaying) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            drawWalls();
-
-             Pháo Laser
-            ctx.fillStyle = '#ff007f';
-            ctx.fillRect(canvas.width  2 - 22, canvas.height - 18, 44, 18);
-            ctx.fillStyle = '#66fcf1';
-            ctx.fillRect(canvas.width  2 - 5, canvas.height - 30, 10, 12);
-
-             Quản lý Tên Lửa
-            spawnTimer++;
-            if (spawnTimer = spawnInterval) {
-                missiles.push(new Missile());
-                spawnTimer = 0;
-            }
-
-            for (let i = missiles.length - 1; i = 0; i--) {
-                let m = missiles[i];
-                m.update();
-                m.draw();
-
-                let hitWallIndex = walls.findIndex(w = w.alive && (m.x = w.x - 12 && m.x = w.x + w.width + 12) && (m.y + 35 = w.y));
-
-                if (hitWallIndex !== -1) {
-                    walls[hitWallIndex].alive = false;
-                    playWallBreakSound();
-                    createExplosion(walls[hitWallIndex].x + walls[hitWallIndex].width2, walls[hitWallIndex].y + walls[hitWallIndex].height2, true);
-                    missiles.splice(i, 1);
-                    updateWallsUI();
-
-                    if (walls.filter(w = w.alive).length === 0) {
-                        setTimeout(endGame, 200);
-                        return;
-                    }
-                } else if (m.y = canvas.height - 15) {
-                    playWallBreakSound();
-                    createExplosion(m.x, canvas.height - 10, true);
-                    missiles.splice(i, 1);
-                    setTimeout(endGame, 200);
-                    return;
-                }
-            }
-
-             Quản lý Laser
-            for (let i = lasers.length - 1; i = 0; i--) {
-                lasers[i].update();
-                lasers[i].draw();
-                if (lasers[i].progress = 1) {
-                    lasers.splice(i, 1);
-                }
-            }
-
-             Quản lý Hiệu ứng nổ
-            for (let i = particles.length - 1; i = 0; i--) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].alpha = 0) {
-                    particles.splice(i, 1);
-                }
-            }
-
-            animationFrameId = requestAnimationFrame(gameLoop);
-        }
-
-        function startGame() {
-            initAudio();
-
-            const speedVal = speedSelect.value;
-            if (speedVal === 'veryslow') {
-                baseSpeedMultiplier = 0.25;
-                spawnInterval = 260;
-            } else if (speedVal === 'slow') {
-                baseSpeedMultiplier = 0.5;
-                spawnInterval = 180;
-            } else if (speedVal === 'fast') {
-                baseSpeedMultiplier = 1.5;
-                spawnInterval = 80;
-            } else {
-                baseSpeedMultiplier = 1.0;
-                spawnInterval = 120;
-            }
-
-            score = 0;
-            level = 1;
-            missiles = [];
-            lasers = [];
-            particles = [];
-            spawnTimer = 0;
-            isPlaying = true;
-
-            initWalls();
-            scoreEl.textContent = score;
-            levelEl.textContent = level;
-            updateWallsUI();
-
-            overlay.style.display = 'none';
-            inputEl.disabled = false;
-            inputEl.value = '';
-            inputEl.focus();
-
-            cancelAnimationFrame(animationFrameId);
-            gameLoop();
-        }
-
-        function endGame() {
-            isPlaying = false;
-            inputEl.disabled = true;
-            overlayTitle.textContent = 💥 CĂN CỨ BỊ TIÊU DIỆT;
-            overlayDesc.innerHTML = `Toàn bộ 3 Bức Tường đã bị bộc phá!brTổng điểm đạt được strong style=color#66fcf1; font-size1.4rem;${score} Điểmstrong (Cấp ${level})`;
-            startBtn.textContent = THỬ LẠI 🔄;
-            overlay.style.display = 'flex';
-        }
-
-         Lắng nghe sự kiện gõ phím để kích hoạt BẮN TỰ ĐỘNG
-        inputEl.addEventListener('input', checkAutoFire);
-        startBtn.addEventListener('click', startGame);
-
-        document.querySelectorAll('#game-missile-defense-wrapper .misl-key').forEach(key = {
-            key.addEventListener('click', () = {
-                if (!isPlaying) return;
-                initAudio();
-                const val = key.getAttribute('data-val');
-                inputEl.value += val;
-                checkAutoFire();
-                inputEl.focus();
-            });
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Bắn Phá Tên Lửa - Luyện Gõ Số Tự Động (Auto-Fire)</title>
+
+  <!-- Thẻ SEO & Social Sharing -->
+  <meta name="description" content="Game Bắn Phá Tên Lửa (Auto-Fire Edition) - Luyện gõ phím nhanh với pháo Laser tự động kích hoạt ngay khi nhập đúng dãy số. Chơi ngay trên trình duyệt!">
+  <meta name="keywords" content="game luyen go phim, luyen numpad, game ban ten lua, luyen go so nhanh, typing game">
+  
+  <meta property="og:title" content="🚀 Game Bắn Phá Tên Lửa - Tự Động Bắn Ngay Khi Nhập Số">
+  <meta property="og:description" content="Luyện tốc độ gõ phím Numpad cực vui với chế độ Auto-Fire tự động bắn Laser khi nhập đúng dãy số tên lửa.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🚀 Game Bắn Phá Tên Lửa - Luyện Gõ Số Nhanh">
+  <meta name="twitter:description" content="Tối ưu hóa tốc độ gõ phím với game Bắn Phá Tên Lửa trực tuyến.">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px 10px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* CSS GAME COMPONENT */
+    #game-missile-defense-wrapper {
+      all: initial;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: block;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    #game-missile-defense-wrapper *, 
+    #game-missile-defense-wrapper *::before, 
+    #game-missile-defense-wrapper *::after {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #game-missile-defense-wrapper .misl-container {
+      background: #0b0c10;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      color: #ffffff;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #1f2833;
+    }
+
+    #game-missile-defense-wrapper .misl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1f2833;
+      padding: 10px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    #game-missile-defense-wrapper .misl-score { color: #66fcf1; }
+    #game-missile-defense-wrapper .misl-walls { color: #ff007f; }
+    #game-missile-defense-wrapper .misl-level { color: #f7fff7; }
+
+    #game-missile-defense-wrapper .misl-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: linear-gradient(to bottom, #05050e, #1a1a2e);
+      border-radius: 12px;
+      border: 2px solid #45a29e;
+      overflow: hidden;
+    }
+
+    #game-missile-defense-wrapper canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #game-missile-defense-wrapper .misl-control-panel {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #game-missile-defense-wrapper .misl-input-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #game-missile-defense-wrapper .misl-input-box {
+      padding: 12px 18px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      border-radius: 8px;
+      border: 2px solid #66fcf1;
+      background: #1f2833;
+      color: #ffdd59;
+      text-align: center;
+      outline: none;
+      letter-spacing: 3px;
+      width: 80%;
+    }
+
+    #game-missile-defense-wrapper .misl-btn {
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: #ff007f;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #game-missile-defense-wrapper .misl-btn:hover {
+      background: #ff3399;
+      transform: translateY(-2px);
+    }
+
+    #game-missile-defense-wrapper .misl-select {
+      padding: 10px 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #1f2833;
+      color: #66fcf1;
+      border: 2px solid #45a29e;
+      border-radius: 8px;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    #game-missile-defense-wrapper .misl-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(11, 12, 16, 0.92);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #game-missile-defense-wrapper .misl-overlay-title {
+      font-size: 2.2rem;
+      color: #66fcf1;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    #game-missile-defense-wrapper .misl-overlay-desc {
+      font-size: 1rem;
+      color: #c5c6c7;
+      margin-bottom: 15px;
+      max-width: 85%;
+      line-height: 1.5;
+    }
+
+    #game-missile-defense-wrapper .misl-keypad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    #game-missile-defense-wrapper .misl-key {
+      padding: 12px 0;
+      background: #1f2833;
+      color: #66fcf1;
+      border: 1px solid #45a29e;
+      border-radius: 6px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #game-missile-defense-wrapper .misl-key:active {
+      background: #45a29e;
+      color: #0b0c10;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- GIỚI THIỆU -->
+  <div style="max-width: 720px; margin: 0 auto 20px auto; color: #333; line-height: 1.6;">
+    <h1 style="font-size: 24px; color: #0f3460; font-weight: bold; margin-bottom: 10px;">
+      🚀 Game Bắn Phá Tên Lửa - Tự Động Bắn Ngay Khi Nhập Số
+    </h1>
+    <p>
+      <strong>Bắn Phá Tên Lửa (Auto-Fire Edition)</strong> giúp tối ưu hóa tốc độ gõ phím. Bạn chỉ cần gõ đúng dãy số hiển thị trên tên lửa, pháo Laser sẽ <strong>tự động bắn ngay lập tức</strong> mà không cần tốn thêm thao tác nhấn phím Enter hay bấm nút!
+    </p>
+  </div>
+
+  <!-- GAME CONTAINER -->
+  <div id="game-missile-defense-wrapper">
+    <div class="misl-container">
+      <div class="misl-header">
+        <div class="misl-score">Điểm: <span id="misl-scoreVal">0</span></div>
+        <div class="misl-level">Cấp: <span id="misl-levelVal">1</span></div>
+        <div class="misl-walls">Tường Thành: <span id="misl-wallsVal">🧱🧱🧱</span></div>
+      </div>
+
+      <div class="misl-canvas-container">
+        <canvas id="misl-canvas"></canvas>
+        
+        <div class="misl-overlay" id="misl-overlay">
+          <div class="misl-overlay-title" id="misl-overlayTitle">BẮN PHÁ TÊN LỬA</div>
+          <div class="misl-overlay-desc" id="misl-overlayDesc">
+            ⚡ <strong>Chế độ Bắn Tự Động:</strong> Chỉ cần gõ đúng số, Laser sẽ tự kích hoạt!<br>
+            Chọn cấu hình tập luyện trước khi bắt đầu.
+          </div>
+          
+          <div style="margin-bottom: 8px;">
+            <label for="misl-speedSelect" style="color: #ffdd59; font-weight: bold; font-size: 0.95rem; margin-right: 8px;">🚀 Tốc độ ban đầu:</label>
+            <select id="misl-speedSelect" class="misl-select">
+              <option value="veryslow" selected>🐌 Rất chậm (Tập luyện thư thả)</option>
+              <option value="slow">🐢 Chậm (Làm quen Numpad)</option>
+              <option value="medium">🏃 Trung bình (Tiêu chuẩn)</option>
+              <option value="fast">⚡ Nhanh (Thách thức cao thủ)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 15px;">
+            <label for="misl-digitsSelect" style="color: #ffdd59; font-weight: bold; font-size: 0.95rem; margin-right: 8px;">🔢 Độ dài dãy số:</label>
+            <select id="misl-digitsSelect" class="misl-select">
+              <option value="auto" selected>✨ Tự động (Tăng theo Cấp độ)</option>
+              <option value="1">1 Chữ số (Cơ bản)</option>
+              <option value="2">2 Chữ số</option>
+              <option value="3">3 Chữ số</option>
+              <option value="4">4 Chữ số</option>
+              <option value="5">5 Chữ số</option>
+              <option value="6">6 Chữ số (Chuyên nghiệp)</option>
+            </select>
+          </div>
+
+          <button class="misl-btn" id="misl-startBtn">BẮT ĐẦU CHƠI 🚀</button>
+        </div>
+      </div>
+
+      <div class="misl-control-panel">
+        <div class="misl-input-group">
+          <input type="text" id="misl-input" class="misl-input-box" placeholder="Gõ số là bắn tự động..." autocomplete="off" disabled>
+        </div>
+
+        <div class="misl-keypad">
+          <button class="misl-key" data-val="1">1</button>
+          <button class="misl-key" data-val="2">2</button>
+          <button class="misl-key" data-val="3">3</button>
+          <button class="misl-key" data-val="4">4</button>
+          <button class="misl-key" data-val="5">5</button>
+          <button class="misl-key" data-val="6">6</button>
+          <button class="misl-key" data-val="7">7</button>
+          <button class="misl-key" data-val="8">8</button>
+          <button class="misl-key" data-val="9">9</button>
+          <button class="misl-key" data-val="0">0</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const canvas = document.getElementById('misl-canvas');
+    const ctx = canvas.getContext('2d');
+    const scoreEl = document.getElementById('misl-scoreVal');
+    const levelEl = document.getElementById('misl-levelVal');
+    const wallsEl = document.getElementById('misl-wallsVal');
+    const inputEl = document.getElementById('misl-input');
+    const startBtn = document.getElementById('misl-startBtn');
+    const speedSelect = document.getElementById('misl-speedSelect');
+    const digitsSelect = document.getElementById('misl-digitsSelect');
+    const overlay = document.getElementById('misl-overlay');
+    const overlayTitle = document.getElementById('misl-overlayTitle');
+    const overlayDesc = document.getElementById('misl-overlayDesc');
+
+    let score = 0;
+    let level = 1;
+    let isPlaying = false;
+
+    let missiles = [];
+    let lasers = [];
+    let particles = [];
+    let walls = [];
+    let spawnTimer = 0;
+    let spawnInterval = 200;
+    let animationFrameId = null;
+
+    let baseSpeedMultiplier = 0.25;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playLaserSound() {
+      if (!audioCtx) return;
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.15);
+    }
+
+    function playExplosionSound() {
+      if (!audioCtx) return;
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.25);
+    }
+
+    function playWallBreakSound() {
+      if (!audioCtx) return;
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+      osc.frequency.linearRampToValueAtTime(20, audioCtx.currentTime + 0.5);
+      gain.gain.setValueAtTime(0.6, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.5);
+    }
+
+    function playLevelUpSound() {
+      if (!audioCtx) return;
+      let now = audioCtx.currentTime;
+      let osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.setValueAtTime(600, now + 0.1);
+      osc.frequency.setValueAtTime(800, now + 0.2);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(now + 0.35);
+    }
+
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function initWalls() {
+      walls = [];
+      const wallWidth = 110;
+      const wallHeight = 35;
+      const y = canvas.height - 50;
+      const gap = (canvas.width - (wallWidth * 3)) / 4;
+
+      for (let i = 0; i < 3; i++) {
+        walls.push({
+          x: gap + i * (wallWidth + gap),
+          y: y,
+          width: wallWidth,
+          height: wallHeight,
+          alive: true
         });
+      }
+    }
 
-    })();
-    script
-div
+    class Missile {
+      constructor() {
+        this.x = Math.random() * (canvas.width - 100) + 50;
+        this.y = -40;
+        
+        const rawSpeed = (0.3 + (level * 0.05) + Math.random() * 0.1) * baseSpeedMultiplier;
+        this.speed = Math.min(rawSpeed, 4.5);
+        
+        let numDigits = 2;
+        const digitVal = digitsSelect.value;
+        if (digitVal === 'auto') {
+          numDigits = 2 + Math.floor((level - 1) / 2);
+          if (numDigits > 6) numDigits = 6;
+        } else {
+          numDigits = parseInt(digitVal, 10);
+        }
+        
+        this.code = '';
+        for (let i = 0; i < numDigits; i++) {
+          this.code += Math.floor(Math.random() * 10).toString();
+        }
+
+        this.width = 30;
+        this.height = 45;
+      }
+
+      update() {
+        this.y += this.speed;
+      }
+
+      draw() {
+        ctx.fillStyle = '#ff007f';
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x - 12, this.y + 35);
+        ctx.lineTo(this.x + 12, this.y + 35);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#ffdd59';
+        ctx.beginPath();
+        ctx.moveTo(this.x - 6, this.y + 35);
+        ctx.lineTo(this.x, this.y + 35 + Math.random() * 14);
+        ctx.lineTo(this.x + 6, this.y + 35);
+        ctx.closePath();
+        ctx.fill();
+
+        let boxWidth = Math.max(64, this.code.length * 12 + 16);
+        ctx.fillStyle = '#0b0c10';
+        ctx.fillRect(this.x - boxWidth/2, this.y - 25, boxWidth, 22);
+        ctx.strokeStyle = '#66fcf1';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(this.x - boxWidth/2, this.y - 25, boxWidth, 22);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 15px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.code, this.x, this.y - 9);
+      }
+    }
+
+    class Laser {
+      constructor(targetX, targetY) {
+        this.startX = canvas.width / 2;
+        this.startY = canvas.height - 10;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.progress = 0;
+      }
+
+      update() {
+        this.progress += 0.25;
+      }
+
+      draw() {
+        ctx.strokeStyle = '#66fcf1';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(this.startX, this.startY);
+        let curX = this.startX + (this.targetX - this.startX) * this.progress;
+        let curY = this.startY + (this.targetY - this.startY) * this.progress;
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+      }
+    }
+
+    class Particle {
+      constructor(x, y, isBig = false) {
+        this.x = x;
+        this.y = y;
+        let speedScale = isBig ? 14 : 7;
+        this.vx = (Math.random() - 0.5) * speedScale;
+        this.vy = (Math.random() - 0.5) * speedScale;
+        this.alpha = 1;
+        this.radius = isBig ? (Math.random() * 6 + 4) : 3;
+        this.color = ['#ff007f', '#66fcf1', '#ffdd59', '#ff3300', '#ffffff'][Math.floor(Math.random() * 5)];
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.03;
+      }
+
+      draw() {
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function createExplosion(x, y, isBig = false) {
+      let count = isBig ? 50 : 22;
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y, isBig));
+      }
+    }
+
+    function updateWallsUI() {
+      let activeCount = walls.filter(w => w.alive).length;
+      let wallIcons = '';
+      for (let i = 0; i < activeCount; i++) wallIcons += '🧱';
+      wallsEl.textContent = wallIcons || '💥 HỎNG HẾT';
+    }
+
+    function drawWalls() {
+      walls.forEach(w => {
+        if (w.alive) {
+          ctx.fillStyle = '#2c5364';
+          ctx.fillRect(w.x, w.y, w.width, w.height);
+          
+          ctx.strokeStyle = '#66fcf1';
+          ctx.lineWidth = 3;
+          ctx.strokeRect(w.x, w.y, w.width, w.height);
+
+          ctx.strokeStyle = '#0f2027';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(w.x, w.y + w.height/2);
+          ctx.lineTo(w.x + w.width, w.y + w.height/2);
+          ctx.moveTo(w.x + w.width/3, w.y);
+          ctx.lineTo(w.x + w.width/3, w.y + w.height/2);
+          ctx.moveTo(w.x + (w.width/3)*2, w.y + w.height/2);
+          ctx.lineTo(w.x + (w.width/3)*2, w.y + w.height);
+          ctx.stroke();
+        }
+      });
+    }
+
+    function checkAutoFire() {
+      if (!isPlaying) return;
+      initAudio();
+
+      const val = inputEl.value.trim();
+      if (!val) return;
+
+      let hitIndex = missiles.findIndex(m => m.code === val);
+
+      if (hitIndex !== -1) {
+        playLaserSound();
+        let target = missiles[hitIndex];
+        lasers.push(new Laser(target.x, target.y));
+        
+        inputEl.value = '';
+
+        setTimeout(() => {
+          playExplosionSound();
+          createExplosion(target.x, target.y, false);
+          
+          let curIdx = missiles.indexOf(target);
+          if (curIdx !== -1) {
+            missiles.splice(curIdx, 1);
+          }
+          
+          score += 10;
+          scoreEl.textContent = score;
+
+          if (score >= level * 50) {
+            level++;
+            levelEl.textContent = level;
+            spawnInterval = Math.max(60, Math.floor((220 - level * 5) / baseSpeedMultiplier));
+            playLevelUpSound();
+          }
+        }, 70);
+      }
+    }
+
+    function gameLoop() {
+      if (!isPlaying) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawWalls();
+
+      ctx.fillStyle = '#ff007f';
+      ctx.fillRect(canvas.width / 2 - 22, canvas.height - 18, 44, 18);
+      ctx.fillStyle = '#66fcf1';
+      ctx.fillRect(canvas.width / 2 - 5, canvas.height - 30, 10, 12);
+
+      spawnTimer++;
+      if (spawnTimer >= spawnInterval) {
+        missiles.push(new Missile());
+        spawnTimer = 0;
+      }
+
+      for (let i = missiles.length - 1; i >= 0; i--) {
+        let m = missiles[i];
+        m.update();
+        m.draw();
+
+        let hitWallIndex = walls.findIndex(w => w.alive && (m.x >= w.x - 12 && m.x <= w.x + w.width + 12) && (m.y + 35 >= w.y));
+
+        if (hitWallIndex !== -1) {
+          walls[hitWallIndex].alive = false;
+          playWallBreakSound();
+          createExplosion(walls[hitWallIndex].x + walls[hitWallIndex].width/2, walls[hitWallIndex].y + walls[hitWallIndex].height/2, true);
+          missiles.splice(i, 1);
+          updateWallsUI();
+
+          if (walls.filter(w => w.alive).length === 0) {
+            setTimeout(endGame, 200);
+            return;
+          }
+        } else if (m.y >= canvas.height - 15) {
+          playWallBreakSound();
+          createExplosion(m.x, canvas.height - 10, true);
+          missiles.splice(i, 1);
+          setTimeout(endGame, 200);
+          return;
+        }
+      }
+
+      for (let i = lasers.length - 1; i >= 0; i--) {
+        lasers[i].update();
+        lasers[i].draw();
+        if (lasers[i].progress >= 1) {
+          lasers.splice(i, 1);
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].alpha <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+      initAudio();
+
+      const speedVal = speedSelect.value;
+      if (speedVal === 'veryslow') {
+        baseSpeedMultiplier = 0.25;
+        spawnInterval = 260;
+      } else if (speedVal === 'slow') {
+        baseSpeedMultiplier = 0.5;
+        spawnInterval = 180;
+      } else if (speedVal === 'fast') {
+        baseSpeedMultiplier = 1.5;
+        spawnInterval = 80;
+      } else {
+        baseSpeedMultiplier = 1.0;
+        spawnInterval = 120;
+      }
+
+      score = 0;
+      level = 1;
+      missiles = [];
+      lasers = [];
+      particles = [];
+      spawnTimer = 0;
+      isPlaying = true;
+
+      initWalls();
+      scoreEl.textContent = score;
+      levelEl.textContent = level;
+      updateWallsUI();
+
+      overlay.style.display = 'none';
+      inputEl.disabled = false;
+      inputEl.value = '';
+      inputEl.focus();
+
+      cancelAnimationFrame(animationFrameId);
+      gameLoop();
+    }
+
+    function endGame() {
+      isPlaying = false;
+      inputEl.disabled = true;
+      overlayTitle.textContent = "💥 CĂN CỨ BỊ TIÊU DIỆT";
+      overlayDesc.innerHTML = `Toàn bộ 3 Bức Tường đã bị bộc phá!<br>Tổng điểm đạt được: <strong style="color:#66fcf1; font-size:1.4rem;">${score} Điểm</strong> (Cấp ${level})`;
+      startBtn.textContent = "THỬ LẠI 🔄";
+      overlay.style.display = 'flex';
+    }
+
+    inputEl.addEventListener('input', checkAutoFire);
+    startBtn.addEventListener('click', startGame);
+
+    document.querySelectorAll('#game-missile-defense-wrapper .misl-key').forEach(key => {
+      key.addEventListener('click', () => {
+        if (!isPlaying) return;
+        initAudio();
+        const val = key.getAttribute('data-val');
+        inputEl.value += val;
+        checkAutoFire();
+        inputEl.focus();
+      });
+    });
+
+  })();
+  </script>
+</body>
+</html>
